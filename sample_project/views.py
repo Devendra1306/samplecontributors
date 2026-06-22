@@ -1,9 +1,13 @@
+import os
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # MongoDB connection
-MONGO_URI = "mongodb+srv://devendrasagar0988_db_user:DVEx2Q7zBwHMFy2L@cluster0.zlt1etx.mongodb.net/"
+MONGO_URI = os.getenv('MONGO_URI')
 try:
     client = MongoClient(MONGO_URI)
     db = client['sample_contributions']
