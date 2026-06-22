@@ -6,14 +6,10 @@
       "use": "@vercel/python"
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/static/(.*)",
-      "dest": "/static/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "sample_project/wsgi.py"
+      "source": "/(.*)",
+      "destination": "sample_project/wsgi.py"
     }
   ]
 }
