@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login — SamPle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #080808;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem;
+            background: #111;
+            border: 1px solid #1e1e1e;
+            border-radius: 20px;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 2.5rem;
+        }
+        .logo-dot {
+            width: 10px; height: 10px;
+            background: #0070f3;
+            border-radius: 50%;
+            box-shadow: 0 0 12px #0070f3;
+        }
+        .logo span {
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 500;
+        }
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .subtitle {
+            font-size: 0.875rem;
+            color: #555;
+            margin-bottom: 2rem;
+        }
+        label {
+            display: block;
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: #0a0a0a;
+            border: 1px solid #1e1e1e;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+            margin-bottom: 1.25rem;
+        }
+        input[type="password"]:focus {
+            border-color: #0070f3;
+        }
+        .error {
+            background: rgba(255, 60, 60, 0.08);
+            border: 1px solid rgba(255, 60, 60, 0.2);
+            color: #ff6b6b;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+        button {
+            width: 100%;
+            padding: 0.875rem;
+            background: #0070f3;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+        }
+        button:hover { background: #005bb5; transform: translateY(-1px); }
+        .hint {
+            text-align: center;
+            margin-top: 1.25rem;
+            font-size: 0.78rem;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <div class="logo">
+            <div class="logo-dot"></div>
+            <span>SamPle Admin</span>
+        </div>
+        <h1>Sign in</h1>
+        <p class="subtitle">Enter your admin password to continue.</p>
+
+        {% if error %}
+        <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="••••••••••••" autofocus required>
+            <button type="submit">Access Dashboard →</button>
+        </form>
+        <p class="hint">Restricted area. Authorized personnel only.</p>
+    </div>
+</body>
+</html>

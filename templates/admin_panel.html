@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributors — SamPle Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #080808;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 220px;
+            height: 100vh;
+            background: #0d0d0d;
+            border-right: 1px solid #1a1a1a;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            z-index: 10;
+        }
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo-dot {
+            width: 9px; height: 9px;
+            background: #0070f3;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #0070f3;
+        }
+        .logo-text {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #555;
+            font-weight: 600;
+        }
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            color: #555;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .nav-item.active {
+            background: rgba(0,112,243,0.1);
+            color: #0070f3;
+        }
+        .nav-item:hover:not(.active) {
+            background: #111;
+            color: #aaa;
+        }
+        .nav-icon { font-size: 1rem; }
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 0.6rem 0.75rem;
+            border-radius: 8px;
+            color: #3a3a3a;
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            text-align: left;
+        }
+        .logout-btn:hover {
+            background: rgba(255,60,60,0.05);
+            color: #ff6b6b;
+        }
+
+        /* Main */
+        .main {
+            margin-left: 220px;
+            padding: 2.5rem;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 2.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .header-left h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+        .header-left p {
+            font-size: 0.85rem;
+            color: #444;
+        }
+
+        /* Search */
+        .search-box {
+            position: relative;
+        }
+        .search-box input {
+            width: 260px;
+            padding: 0.65rem 1rem 0.65rem 2.5rem;
+            background: #111;
+            border: 1px solid #1e1e1e;
+            border-radius: 10px;
+            color: #ccc;
+            font-size: 0.875rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-box input:focus { border-color: #0070f3; }
+        .search-box input::placeholder { color: #333; }
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            font-size: 0.875rem;
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            transition: border-color 0.2s;
+        }
+        .stat-card:hover { border-color: #2a2a2a; }
+        .stat-label {
+            font-size: 0.75rem;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1;
+        }
+        .stat-value.blue { color: #0070f3; }
+
+        /* Table */
+        .table-card {
+            background: #0d0d0d;
+            border: 1px solid #1a1a1a;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        .table-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .table-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .table-count {
+            font-size: 0.78rem;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        thead th {
+            text-align: left;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.875rem 1.5rem;
+            border-bottom: 1px solid #141414;
+        }
+        tbody tr {
+            border-bottom: 1px solid #111;
+            transition: background 0.15s;
+        }
+        tbody tr:last-child { border-bottom: none; }
+        tbody tr:hover { background: #111; }
+        tbody td {
+            padding: 1rem 1.5rem;
+            font-size: 0.875rem;
+            color: #bbb;
+            vertical-align: middle;
+        }
+        .td-name {
+            color: #fff;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0070f3, #00c6ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+        .role-badge {
+            display: inline-block;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            background: rgba(0,112,243,0.08);
+            color: #4da3ff;
+            border: 1px solid rgba(0,112,243,0.15);
+        }
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #333;
+        }
+        .empty-state .icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .empty-state p { font-size: 0.9rem; }
+
+        .search-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.3rem 0.75rem;
+            background: rgba(0,112,243,0.08);
+            border: 1px solid rgba(0,112,243,0.15);
+            border-radius: 20px;
+            font-size: 0.78rem;
+            color: #4da3ff;
+            margin-bottom: 1.25rem;
+            text-decoration: none;
+        }
+        .search-tag:hover { background: rgba(0,112,243,0.15); }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .main { margin-left: 0; padding: 1.5rem; }
+            .search-box input { width: 100%; }
+            thead { display: none; }
+            tbody td { display: block; padding: 0.4rem 1rem; }
+            tbody td:first-child { padding-top: 1rem; }
+            tbody td:last-child { padding-bottom: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-dot"></div>
+            <span class="logo-text">SamPle</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/admin-panel/" class="nav-item active">
+                <span class="nav-icon">⬡</span> Contributors
+            </a>
+            <a href="/" class="nav-item">
+                <span class="nav-icon">↗</span> Public Site
+            </a>
+        </nav>
+        <a href="/admin-panel/?logout=1" class="logout-btn">
+            <span>⎋</span> Sign out
+        </a>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main">
+        <div class="header">
+            <div class="header-left">
+                <h1>Contributors</h1>
+                <p>All registered applicants from the SamPle contribution form.</p>
+            </div>
+            <form method="GET" action="/admin-panel/" class="search-box">
+                <span class="search-icon">⌕</span>
+                <input type="text" name="search" placeholder="Search name, email, role…" value="{{ search }}" id="search-input">
+            </form>
+        </div>
+
+        {% if search %}
+        <a href="/admin-panel/" class="search-tag">
+            ✕ Showing results for "{{ search }}"
+        </a>
+        {% endif %}
+
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-label">Total</div>
+                <div class="stat-value">{{ total }}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Showing</div>
+                <div class="stat-value blue">{{ count }}</div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <div class="table-header">
+                <span class="table-title">All Applicants</span>
+                <span class="table-count">{{ count }} record{% if count != 1 %}s{% endif %}</span>
+            </div>
+            {% if contributors %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for c in contributors %}
+                    <tr>
+                        <td style="color:#333; font-size:0.78rem;">{{ forloop.counter }}</td>
+                        <td>
+                            <div class="td-name">
+                                <div class="avatar">{{ c.name|slice:":1"|upper }}</div>
+                                {{ c.name }}
+                            </div>
+                        </td>
+                        <td>{{ c.email }}</td>
+                        <td>{{ c.phone }}</td>
+                        <td><span class="role-badge">{{ c.role }}</span></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-state">
+                <div class="icon">◎</div>
+                <p>No contributors found{% if search %} matching "{{ search }}"{% endif %}.</p>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+
+    <script>
+        // Auto-submit search on typing with debounce
+        const input = document.getElementById('search-input');
+        let timer;
+        input.addEventListener('input', () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => input.form.submit(), 400);
+        });
+    </script>
+
+</body>
+</html>
